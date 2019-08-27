@@ -13,7 +13,7 @@
 ## Install
 
 ```sh
-npm install terminalguide
+npm install -g terminalguide
 ```
 
 ## Usage
