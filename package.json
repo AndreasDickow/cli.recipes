@@ -1,0 +1,14 @@
+{
+  "name": "terminalguide",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.20.0",
+    "http": "^0.0.0",
+    "inquirer": "^6.5.0",
+    "marked": "^0.7.0",
+    "marked-terminal": "^3.3.0",
+    "node-persist": "^3.0.5"
+  }
+}
