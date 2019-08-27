@@ -8,7 +8,7 @@
 
 > terminal.guide guides you through complex install procedures in the command line, join the open source community and share your install procedures or use those uploaded by others.
 
-### 🏠 [Homepage](terminal.guide)
+### 🏠 [https://terminal.guide](https://terminal.guide)
 
 ## Install
 
