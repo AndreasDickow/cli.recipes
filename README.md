@@ -22,6 +22,10 @@ npm install -g terminalguide
 guide
 ```
 
+<p>
+<img alt="preview" src="https://terminal.guide/static/img/demo.gif" />
+</p>
+
 ## Author
 
 👤 **Andreas Dickow**
