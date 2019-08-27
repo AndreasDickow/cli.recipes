@@ -3,6 +3,72 @@
   <component name="ChangeListManager">
     <list default="true" id="7213796b-f156-426e-bb41-9e9ee736cd38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ansi-escapes/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ansi-escapes/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ansi-regex/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ansi-regex/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ansi-regex/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ansi-regex/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ansi-regex/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ansi-regex/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ansi-styles/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ansi-styles/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ansicolors/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/ansicolors/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cardinal/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cardinal/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/chalk/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/chalk/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/chardet/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/chardet/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cli-cursor/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cli-cursor/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cli-table/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cli-table/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/cli-width/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cli-width/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/color-convert/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/color-convert/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/color-name/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/color-name/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/colors/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/colors/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/commander/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/commander/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/escape-string-regexp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/escape-string-regexp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/esprima/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/esprima/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/external-editor/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/external-editor/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/figures/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/figures/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/has-flag/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/has-flag/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/has-flag/license" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/has-flag/license" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/has-flag/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/has-flag/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/has-flag/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/has-flag/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/http/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/http/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/iconv-lite/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/iconv-lite/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/inquirer/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/inquirer/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/is-fullwidth-code-point/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/is-fullwidth-code-point/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/is-promise/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/is-promise/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/lodash.toarray/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/lodash.toarray/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/lodash/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/lodash/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/marked-terminal/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/marked-terminal/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/marked/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/marked/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/mimic-fn/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mimic-fn/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/minimist/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/minimist/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/mkdirp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mkdirp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/mute-stream/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mute-stream/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/node-emoji/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/node-emoji/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/node-persist/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/node-persist/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/onetime/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/onetime/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/os-tmpdir/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/os-tmpdir/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/redeyed/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/redeyed/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/restore-cursor/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/restore-cursor/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/run-async/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/run-async/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/rxjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/rxjs/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/safer-buffer/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/safer-buffer/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/signal-exit/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/signal-exit/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/string-width/node_modules/ansi-regex/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/string-width/node_modules/ansi-regex/license" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/string-width/node_modules/ansi-regex/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/string-width/node_modules/ansi-regex/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/string-width/node_modules/strip-ansi/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/string-width/node_modules/strip-ansi/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/string-width/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/string-width/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/strip-ansi/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/strip-ansi/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/supports-color/node_modules/has-flag/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/supports-color/node_modules/has-flag/license" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/supports-color/node_modules/has-flag/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/supports-color/node_modules/has-flag/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/supports-color/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/supports-color/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/supports-hyperlinks/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/supports-hyperlinks/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/through/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/through/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tmp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/tmp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/tslib/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/tslib/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tutorial.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,20 +92,29 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+            <state>
+              <caret column="12" selection-start-column="12" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/cli.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="19" selection-start-column="19" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tutorial.js">
+        <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+            <state relative-caret-position="315">
+              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -49,7 +124,7 @@
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="375">
-                <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+                <caret line="25" selection-start-line="25" selection-end-line="25" />
               </first_editor>
               <second_editor />
             </state>
@@ -94,7 +169,10 @@
       <list>
         <option value="$PROJECT_DIR$/logic.js" />
         <option value="$PROJECT_DIR$/tutorial.js" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/cli.js" />
       </list>
     </option>
   </component>
@@ -195,12 +273,12 @@
       <updated>1565107507172</updated>
       <workItem from="1565107510410" duration="18099000" />
       <workItem from="1565198186499" duration="11727000" />
-      <workItem from="1566829464402" duration="14615000" />
+      <workItem from="1566829464402" duration="15563000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44441000" />
+    <option name="totallyTimeSpent" value="45389000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="57" y="23" width="1770" height="988" extended-state="0" />
@@ -242,24 +320,6 @@
           <line>421</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/tutorial.js</url>
-          <line>9</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/tutorial.js</url>
-          <line>17</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/tutorial.js</url>
-          <line>25</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/logic.js</url>
@@ -388,7 +448,7 @@
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="375">
-            <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <caret line="25" selection-start-line="25" selection-end-line="25" />
           </first_editor>
           <second_editor />
         </state>
@@ -401,10 +461,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cli.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="19" selection-start-column="19" selection-end-column="19" />
         </state>
       </provider>
     </entry>

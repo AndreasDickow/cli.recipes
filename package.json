@@ -1,7 +1,7 @@
 {
   "name": "terminalguide",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.1",
+  "main": "cli.js",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.20.0",
@@ -10,5 +10,38 @@
     "marked": "^0.7.0",
     "marked-terminal": "^3.3.0",
     "node-persist": "^3.0.5"
+  },
+  "description": "<h1 align=\"center\">Welcome to terminal.guide 👋</h1> <p>   <img alt=\"Version\" src=\"https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000\" />   <a href=\"terminal.guied/docs\">     <img alt=\"Documentation\" src=\"https://img.shields.io/badge/documentation-yes-brightgreen.svg\" target=\"_blank\" />   </a> </p>",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreasDickow/terminalguide.git"
+  },
+  "preferGlobal": true,
+  "keywords": [
+    "cli",
+    "terminal",
+    "tutorial",
+    "gui",
+    "do-nothing-script",
+    "helper",
+    "productivity",
+    "console",
+    "open",
+    "source",
+    "community",
+    "command-line"
+  ],
+  "author": "Andreas Dickow",
+  "bugs": {
+    "url": "https://github.com/AndreasDickow/terminalguide/issues"
+  },
+  "homepage": "https://github.com/AndreasDickow/terminalguide#readme",
+  "bin": {
+    "guide": "./cli.js",
+    "terminalguide": "./cli.js"
   }
 }
