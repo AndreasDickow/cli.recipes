@@ -35,11 +35,11 @@ marked.setOptions({
 //   -d '{"username": "axyz", "password": "xxx"}' \
 //   http://terminal.guide:8000/api/token/
 
-function write(text) {
+function write(text,speed) {
   var i = text.length;
   while (i--) {
     process.stdout.write(text.charAt(text.length - i - 1));
-    wait(parseInt(Math.random() * 80));
+    wait(parseInt(Math.random() * speed));
 
   }
   process.stdout.write("\n\n");
@@ -56,13 +56,16 @@ function wait(ms) {
 const getMenu = async () => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
   var token = await storage.getItem("token");
-  choices = ['browse', 'search', 'login', 'register', 'about'];
+  if (token) {
+    refresh(true)
+  }
+  choices = ['search', 'browse', 'login', 'register', 'about', 'switch to browser version'];
 
   if (token) {
-    choices = ['my projects', 'browse', 'search', 'about', 'logout']
+    choices = ['my projects', 'search', 'browse', 'about', 'switch to browser version', 'logout']
 
   } else {
-    write('welcome to \x1b[36mterminal.guide\033[0m');
+    write('welcome to \x1b[36mterminal.guide\033[0m',80);
 
   }
 
@@ -178,16 +181,22 @@ const getMenu = async () => {
         "join the open source community and share your install procedures\n" +
         " or use those uploaded by others.\n" +
         "Visit us at https://tutorial.guide\nCopyright BIZ Factory, for legal info go to https://tutorial.guide/terms \n\n";
-      write(text);
+      write(text,10);
 
 
       getMenu();
       return true;
+    } else if (value === 'switch to browser version') {
+      var url = 'https://terminal.guide';
+      var start = (process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open');
+      require('child_process').exec(start + ' ' + url);
+      getMenu();
     }
   });
 }
-function confirmQuestion(input){
-   var questions = [
+
+function confirmQuestion(input) {
+  var questions = [
     {
       type: 'confirm',
       name: 'tutorial.start',
@@ -195,14 +204,13 @@ function confirmQuestion(input){
       default: false
     }
   ];
-
   inquirer.prompt(questions).then(answers => {
     var confirm = answers['tutorial']['start'];
-    if(confirm){
+    if (confirm) {
       getTutorial(input);
-    }
-    else{
-      getMenu();
+
+    } else {
+      search();
     }
   });
 
@@ -257,9 +265,9 @@ const login = async () => {
   });
 
   req.on('error', (error) => {
-    write(error)
+    write(error,20)
   });
-  req.write(data);
+  req.write(data,80);
   req.end();
 
 };
@@ -295,17 +303,16 @@ const refresh = async (mine) => {
       await storage.clear();
       await storage.setItem('token', parsed);
 
-      getList(mine);
 
     });
   });
 
   req.on('error', (error) => {
-    write("Your session is expired, please login again");
+    write("Your session is expired, please login again",80);
     logout();
   });
 
-  req.write(data);
+  req.write(data,20);
   req.end();
 
 };
@@ -349,23 +356,23 @@ const register = async () => {
       try {
         var parsed = JSON.parse(body);
         if (!parsed["email"]) {
-          write(body);
+          write(body,80);
           return register();
         }
 
 
-        write("please check your email account " + parsed["email"] + " to complete registration");
-        write("Going to login");
+        write("please check your email account " + parsed["email"] + " to complete registration",80);
+        write("Going to login",80);
         login();
       } catch (e) {
-        write(e);
+        write(e,20);
         return register();
       }
     });
   })
 
   req.on('error', (error) => {
-    write(error);
+    write(error,20);
 
   });
 
@@ -389,7 +396,7 @@ const getList = async (mine) => {
   // Define search criteria. The search here is case-insensitive and inexact.
   const auth = await storage.getItem("token");
   if (!auth && mine) {
-    write("your session expired, please login again")
+    write("your session expired, please login again",80);
     return login();
   }
   var url = mine === true ? '/tutorial/jsonapi/true/' : '/tutorial/jsonapi/false/';
@@ -413,41 +420,54 @@ const getList = async (mine) => {
     response.on('end', async function () {
       // Data received, let us parse it using JSON!
       var parsed = JSON.parse(body);
+
       parsed.sort(SortByID);
+      choices = []
+      choices.push("[x] back to menu");
+
       for (var i = 0; i < parsed.length; i++) {
-        console.log("\x1b[36m[" + parsed[i].pk + "]:" + parsed[i].fields.title + "\033[0m - " + parsed[i].fields.description);
+        var forked = parsed[i].fields.origin > 0 ? "forked/" : "";
+        choices.push("[" + parsed[i].pk + "]:\x1b[36m" + forked + parsed[i].fields.title + "\033[0m - " + parsed[i].fields.description + " (" + parsed[i].fields.calls + ")");
       }
-      write("\x1b[36mx\033[0m: back to menu");
 
-      const answer = await askQuestion("enter Tutorial id to start with:");
+      var questions = [
+        {
+          type: 'list',
+          name: 'guide',
+          choices: choices
 
-      write(answer);
+        }
+      ];
 
-      if (answer === "x") {
-        return getMenu();
-      } else {
-        return getTutorial(answer);
-      }
+      inquirer.prompt(questions).then(answers => {
+
+        result = answers['guide'].match(/\[([^)]+)\]/)[1];
+        if (result === 'x') {
+          getMenu();
+        } else {
+          confirmQuestion(result);
+        }
+      });
 
     });
-
-  })
+  });
   a.on('error', async (error) => {
-    write(error);
+    write(error,20);
     await refresh(mine);
+    getList(mine);
   });
   a.end();
 };
 
 
+const searchApi = (answers, input) => {
 
-const searchApi = (answers, input) =>{
 
   return new Promise((resolve, reject) => {
     var a = https.request({
       hostname: host,
       port: port,
-      path: '/tutorial/apisearch/?q=' + input,
+      path: '/tutorial/apisearch/?q=' + encodeURI(input),
       method: 'GET',
       headers: {}
     }, function (response) {
@@ -463,15 +483,20 @@ const searchApi = (answers, input) =>{
           var parsed = JSON.parse(body);
           var results = []
           for (i = 0; i < parsed['results'].length; i++) {
-            results[i] = "["+parsed['results'][i]['pk']+"] " + parsed['results'][i]['title']
+            results[i] = "[" + parsed['results'][i]['pk'] + "] \x1b[36m"  + parsed['results'][i]['title'] + "\033[0m ("+ parsed['results'][i]['user']+")";
+            //var forked = parsed['results'][i].origin > 0 ?"forked/":"";
+            //results[i]="[" + parsed['results'][i].pk + "]:\x1b[36m" +forked+parsed['results'][i].title + "\033[0m - " + parsed['results'][i].description+ "("+parsed['results'][i].calls+")";
+
           }
-          var fuzzyResult = fuzzy.filter(input, results);
-          resolve(
-            fuzzyResult.map(function (el) {
-              return el.original;
-            })
-          );
-        }catch(e){
+          // var fuzzyResult = fuzzy.filter(input, results);
+          // resolve(
+          //   fuzzyResult.map(function (el) {
+          //     return el.original;
+          //   })
+          // );
+          results[results.length] = '[x] back to Menu'
+          resolve(results);
+        } catch (e) {
           var fuzzyResult = fuzzy.filter(input, []);
           resolve(
             fuzzyResult.map(function (el) {
@@ -483,24 +508,12 @@ const searchApi = (answers, input) =>{
 
     })
     a.on('error', async (error) => {
-      write(error);
+      write(error,20);
       return reject(error);
     });
     a.end();
   });
 };
-function fuzzyTopics(answers, input) {
-  input = input || '';
-  return new Promise(function(resolve) {
-
-      var fuzzyResult = fuzzy.filter(input, ["a","b"]);
-      resolve(
-        fuzzyResult.map(function(el) {
-          return el.original;
-        })
-      );
-  });
-}
 
 
 const search = async () => {
@@ -510,10 +523,15 @@ const search = async () => {
     name: 'topic',
     message: 'Select a topic to search for',
     source: function (answersSoFar, input) {
-      return searchApi(answersSoFar,input);
+      return searchApi(answersSoFar, input);
     }
   }]).then(function (answers) {
-    confirmQuestion(answers['topic'].match(/\[([^)]+)\]/)[1])
+    result = answers['topic'].match(/\[([^)]+)\]/)[1];
+    if (result === 'x') {
+      getMenu();
+    } else {
+      confirmQuestion(result)
+    }
   });
 }
 
@@ -547,7 +565,8 @@ const getTutorial = async (name) => {
     });
     response.on('end', async function () {
       if (!body) {
-        write("\033[31mno recipe found\033[0m");
+        write("\033[31mno recipe found\033[0m",80);
+        getMenu();
       } else {
         var parsed = JSON.parse(body);
         await askQuestion(parsed.title + " recipe ↵ ");
@@ -558,105 +577,104 @@ const getTutorial = async (name) => {
           }
           const command = parts[i].match(/\`(.*?)\`/);
 
-          if (command[1] && command[1].length > 0) {
-            await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          var ans = null;
+          console.log("");
+          if (command && command[1] && command[1].length > 0) {
+
             ans = await askQuestion(marked(parts[i]) + "default(\033[31m" + command[1] + "\033[0m):" + "↵ ");
-            if (!ans) {
-              ans = command[1];
-            }
-            //console.info(ans);
-            // child = spawn(ans, async function (error, stdout, stderr) {
-            //   child.stdin.write('\x1b[32m' + stdout+'\033[0m)\n');
-            //   if (error !== null) {
-            //     child.stdin.write('\033[31m' + stderr+'\033[0m)');
-            //
-            //     child.stdin.write('exec error: ' + error);
-            //   }
-            // });
-            if (!child) {
-              child = spawn("sh", ["-c", ans]);
-              var scriptOutput = "";
+          }
+          if (!ans) {
+            ans = await askQuestion(marked(parts[i]) + ":" + "↵ ");
+          }
+          //console.info(ans);
+          // child = spawn(ans, async function (error, stdout, stderr) {
+          //   child.stdin.write('\x1b[32m' + stdout+'\033[0m)\n');
+          //   if (error !== null) {
+          //     child.stdin.write('\033[31m' + stderr+'\033[0m)');
+          //
+          //     child.stdin.write('exec error: ' + error);
+          //   }
+          // });
+          if (!child) {
+            child = spawn("sh", ["-c", ans]);
+            var scriptOutput = "";
 
-              child.stdout.setEncoding('utf8');
-              child.stdout.on('data', function (data) {
-                //Here is where the output goes
+            child.stdout.setEncoding('utf8');
+            child.stdout.on('data', function (data) {
+              //Here is where the output goes
 
-                write('\n' + data);
-                // setTimeout(function () {
-                // }, 2000);
-                data = data.toString();
-                scriptOutput += data;
-              });
-              child.stdin.setEncoding('utf8');
-              child.stdin.on('data', function (data) {
-                //Here is where the output goes
+              process.stdout.write('\n' + data);
+              // setTimeout(function () {
+              // }, 2000);
+              data = data.toString();
+              scriptOutput += data;
+            });
+            child.stdin.setEncoding('utf8');
+            child.stdin.on('data', function (data) {
+              //Here is where the output goes
 
-                write('\n' + data);
+              write('\n' + data,10);
 
-                data = data.toString();
-                scriptOutput += data;
-              });
+              data = data.toString();
+              scriptOutput += data;
+            });
 
-              child.stderr.setEncoding('utf8');
-              child.stderr.on('data', function (data) {
-                //Here is where the error output goes
+            child.stderr.setEncoding('utf8');
+            child.stderr.on('data', function (data) {
+              //Here is where the error output goes
 
-                //console.log('stderr: ' + data);
+              //console.log('stderr: ' + data);
 
-                data = data.toString();
-                scriptOutput += data;
-              });
+              data = data.toString();
+              scriptOutput += data;
+            });
 
-              child.on('close', function (code) {
-                //Here you can get the exit code of the script
-
-
-                if (code !== 0) {
-                  // try exec if closed for another readson than finished
-                  child.kill('SIGINT');
-                  child = null;
-                  res = exec(ans, function (error, stdout, stderr) {
-                    console.log(stdout);
-                  });
-                } else {
-                  child = null;
-                }
-
-                //console.log('Full output of script: ',scriptOutput);
-              });
+            child.on('close', function (code) {
+              //Here you can get the exit code of the script
 
 
-            } else if (child && child.stdin) {
-              try {
-                child.stdin.write(ans + "\n");
-                if (ans == "exit") {
-
-                  child.kill('SIGINT');
-                  child = null;
-                }
-              } catch (e) {
-                write(e);
-                write(ans);
+              if (code !== 0) {
+                // try exec if closed for another readson than finished
+                child.kill('SIGINT');
+                child = null;
+                res = exec(ans, function (error, stdout, stderr) {
+                  console.log(stdout);
+                });
+              } else {
+                child = null;
               }
 
+              //console.log('Full output of script: ',scriptOutput);
+            });
 
-              //  child.stdout.write(marked(parts[i]) + "default(\033[31m" + command[1] + "\033[0m):" + "↵");
-              // child.stdin.write(ans);
+
+          } else if (child && child.stdin) {
+            try {
+              child.stdin.write(ans + "\n");
+              if (ans == "exit") {
+
+                child.kill('SIGINT');
+                child = null;
+              }
+            } catch (e) {
+              write(e,20);
+              write(ans);
             }
-            await new Promise(resolve => setTimeout(resolve, 1000));
 
 
-            // child.stdin.write(marked(parts[i]) + "↵" + "\n")
-
+            //  child.stdout.write(marked(parts[i]) + "default(\033[31m" + command[1] + "\033[0m):" + "↵");
+            // child.stdin.write(ans);
           }
-          // else {
-          //   await askQuestion(marked(parts[i]) + "↵");
-          //
-          // }
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+
+          // child.stdin.write(marked(parts[i]) + "↵" + "\n")
 
 
         }
-        write("\033[31mfinished\033[0m");
+        write("\033[31mfinished\033[0m",80);
+        getMenu();
       }
       // Data received, let us parse it using JSON!
 
