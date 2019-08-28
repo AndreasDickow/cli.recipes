@@ -1,5 +1,6 @@
 //const https = require('https');
-const https= require('http');
+const https = require('http');
+var fuzzy = require('fuzzy');
 
 // Connect to a single MongoDB instance. The connection string could be that of a remote server
 // We assign the connection instance to a constant to be used later in closing the connection
@@ -13,8 +14,12 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var spawnSync = require('child_process').spawnSync;
 var child;
-var host= 'localhost';
-var port= 8000;
+var host = 'localhost';
+var port = 8000;
+
+function SortByID(x, y) {
+  return x.pk - y.pk;
+}
 
 marked.setOptions({
   // Define custom renderer
@@ -30,47 +35,39 @@ marked.setOptions({
 //   -d '{"username": "axyz", "password": "xxx"}' \
 //   http://terminal.guide:8000/api/token/
 
-function write(text){
+function write(text) {
   var i = text.length;
-      while (i--) {
-        process.stdout.write(text.charAt(text.length-i-1));
-        wait( parseInt(Math.random()*80));
+  while (i--) {
+    process.stdout.write(text.charAt(text.length - i - 1));
+    wait(parseInt(Math.random() * 80));
 
-      }
-      process.stdout.write("\n\n");
+  }
+  process.stdout.write("\n\n");
 }
 
-function wait(ms){
-   var start = new Date().getTime();
-   var end = start;
-   while(end < start + ms) {
-     end = new Date().getTime();
+function wait(ms) {
+  var start = new Date().getTime();
+  var end = start;
+  while (end < start + ms) {
+    end = new Date().getTime();
   }
 }
 
 const getMenu = async () => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
   var token = await storage.getItem("token");
-  choices = ['browse', 'search','login', 'register', 'about'];
+  choices = ['browse', 'search', 'login', 'register', 'about'];
 
   if (token) {
-    choices = ['my projects','browse', 'search', 'about', 'logout']
+    choices = ['my projects', 'browse', 'search', 'about', 'logout']
+
+  } else {
+    write('welcome to \x1b[36mterminal.guide\033[0m');
 
   }
-  else{
-      write('welcome to \x1b[36mterminal.guide\033[0m');
-
-  }
-
 
 
   var questions = [
-    // {
-    //   type: 'confirm',
-    //   name: 'chooseItems',
-    //   message: 'Choose from below?',
-    //   default: false
-    // },
     // {
     //   type: 'input',
     //   name: 'phone',
@@ -169,11 +166,11 @@ const getMenu = async () => {
     } else if (value === 'browse') {
       getList(false);
       return true;
-    }else if (value === 'My Projects') {
+    } else if (value === 'my projects') {
       getList(true);
       return true;
     } else if (value === 'search') {
-      getTutorial();
+      search();
       return true;
     } else if (value === 'about') {
       const text = "\n\n\x1b[36mtutorial.guide\033[0m\nFast forward your installations\n" +
@@ -188,6 +185,27 @@ const getMenu = async () => {
       return true;
     }
   });
+}
+function confirmQuestion(input){
+   var questions = [
+    {
+      type: 'confirm',
+      name: 'tutorial.start',
+      message: 'Start tutorial?',
+      default: false
+    }
+  ];
+
+  inquirer.prompt(questions).then(answers => {
+    var confirm = answers['tutorial']['start'];
+    if(confirm){
+      getTutorial(input);
+    }
+    else{
+      getMenu();
+    }
+  });
+
 }
 
 function askQuestion(query) {
@@ -215,7 +233,7 @@ const login = async () => {
   });
   const options = {
     hostname: host,
-    port:port,
+    port: port,
     path: '/api/token/',
     method: 'POST',
     headers: {
@@ -246,16 +264,19 @@ const login = async () => {
 
 };
 
-const refresh = async () => {
+const refresh = async (mine) => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
   // Define search criteria. The search here is case-insensitive and inexact.
   const auth = await storage.getItem('token');
+  if (!auth || !auth['refresh']) {
+    return logout();
+  }
   const data = JSON.stringify({
     "refresh": auth["refresh"]
   });
   const options = {
     hostname: host,
-    port:port,
+    port: port,
     path: '/api/token/refresh/',
     method: 'POST',
     headers: {
@@ -274,7 +295,7 @@ const refresh = async () => {
       await storage.clear();
       await storage.setItem('token', parsed);
 
-      getList(true);
+      getList(mine);
 
     });
   });
@@ -309,7 +330,7 @@ const register = async () => {
 
   const options = {
     hostname: host,
-    port:port,
+    port: port,
     path: '/api/signup/',
     method: 'POST',
     headers: {
@@ -325,20 +346,18 @@ const register = async () => {
       body += d;
     });
     res.on('end', async function () {
-      try{
-      var parsed = JSON.parse(body);
-      if(!parsed["email"]){
-        write(body);
-        return register();
-      }
+      try {
+        var parsed = JSON.parse(body);
+        if (!parsed["email"]) {
+          write(body);
+          return register();
+        }
 
 
-     write("please check your email account " + parsed["email"] + " to complete registration");
-       write("Going to login");
-      login();
-      }
-      catch(e){
-        console.log(body);
+        write("please check your email account " + parsed["email"] + " to complete registration");
+        write("Going to login");
+        login();
+      } catch (e) {
         write(e);
         return register();
       }
@@ -369,17 +388,22 @@ const getList = async (mine) => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
   // Define search criteria. The search here is case-insensitive and inexact.
   const auth = await storage.getItem("token");
-  if (!auth) {
-    await login();
+  if (!auth && mine) {
+    write("your session expired, please login again")
+    return login();
+  }
+  var url = mine === true ? '/tutorial/jsonapi/true/' : '/tutorial/jsonapi/false/';
+  var headers = {}
+
+  if (mine) {
+    headers['Authorization'] = 'Bearer ' + auth['access']
   }
   var a = https.request({
     hostname: host,
-    port:port,
-    path: mine === true?'tutorial/jsonapi/mine/':'/tutorial/jsonapi/',
+    port: port,
+    path: url,
     method: 'GET',
-    headers: {
-      'Authorization': 'Bearer ' + auth['access']
-    }
+    headers: headers
   }, function (response) {
     // Continuously update stream with data
     var body = '';
@@ -389,10 +413,11 @@ const getList = async (mine) => {
     response.on('end', async function () {
       // Data received, let us parse it using JSON!
       var parsed = JSON.parse(body);
+      parsed.sort(SortByID);
       for (var i = 0; i < parsed.length; i++) {
         console.log("\x1b[36m[" + parsed[i].pk + "]:" + parsed[i].fields.title + "\033[0m - " + parsed[i].fields.description);
       }
-     write("\x1b[36mx\033[0m: back to menu");
+      write("\x1b[36mx\033[0m: back to menu");
 
       const answer = await askQuestion("enter Tutorial id to start with:");
 
@@ -406,14 +431,92 @@ const getList = async (mine) => {
 
     });
 
-  });
+  })
   a.on('error', async (error) => {
     write(error);
-    await refresh();
-    getList(mine);
+    await refresh(mine);
   });
   a.end();
 };
+
+
+
+const searchApi = (answers, input) =>{
+
+  return new Promise((resolve, reject) => {
+    var a = https.request({
+      hostname: host,
+      port: port,
+      path: '/tutorial/apisearch/?q=' + input,
+      method: 'GET',
+      headers: {}
+    }, function (response) {
+      // Continuously update stream with data
+      var body = '';
+      response.on('data', function (d) {
+        body += d;
+      });
+      response.on('end', function () {
+        // Data received, let us parse it using JSON!
+        try {
+
+          var parsed = JSON.parse(body);
+          var results = []
+          for (i = 0; i < parsed['results'].length; i++) {
+            results[i] = "["+parsed['results'][i]['pk']+"] " + parsed['results'][i]['title']
+          }
+          var fuzzyResult = fuzzy.filter(input, results);
+          resolve(
+            fuzzyResult.map(function (el) {
+              return el.original;
+            })
+          );
+        }catch(e){
+          var fuzzyResult = fuzzy.filter(input, []);
+          resolve(
+            fuzzyResult.map(function (el) {
+              return el.original;
+            })
+          );
+        }
+      });
+
+    })
+    a.on('error', async (error) => {
+      write(error);
+      return reject(error);
+    });
+    a.end();
+  });
+};
+function fuzzyTopics(answers, input) {
+  input = input || '';
+  return new Promise(function(resolve) {
+
+      var fuzzyResult = fuzzy.filter(input, ["a","b"]);
+      resolve(
+        fuzzyResult.map(function(el) {
+          return el.original;
+        })
+      );
+  });
+}
+
+
+const search = async () => {
+  inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+  inquirer.prompt([{
+    type: 'autocomplete',
+    name: 'topic',
+    message: 'Select a topic to search for',
+    source: function (answersSoFar, input) {
+      return searchApi(answersSoFar,input);
+    }
+  }]).then(function (answers) {
+    confirmQuestion(answers['topic'].match(/\[([^)]+)\]/)[1])
+  });
+}
+
 
 /**
  * @function  [getContact]
@@ -430,7 +533,7 @@ const getTutorial = async (name) => {
 
   https.get({
     hostname: host,
-    port:port,
+    port: port,
     path: '/tutorial/json/' + search + '/',
     headers: {
       'Content-Type': 'application/json',

@@ -1,12 +1,14 @@
 {
   "name": "terminalguide",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "cli.js",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.20.0",
+    "fuzzy": "^0.1.3",
     "http": "^0.0.0",
     "inquirer": "^6.5.0",
+    "inquirer-autocomplete-prompt": "^1.0.1",
     "marked": "^0.7.0",
     "marked-terminal": "^3.3.0",
     "node-persist": "^3.0.5"
