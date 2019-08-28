@@ -1,4 +1,6 @@
-const https = require('https');
+//const https = require('https');
+const https= require('http');
+
 // Connect to a single MongoDB instance. The connection string could be that of a remote server
 // We assign the connection instance to a constant to be used later in closing the connection
 const marked = require('marked');
@@ -11,6 +13,8 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var spawnSync = require('child_process').spawnSync;
 var child;
+var host= 'localhost';
+var port= 8000;
 
 marked.setOptions({
   // Define custom renderer
@@ -47,10 +51,10 @@ function wait(ms){
 const getMenu = async () => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
   var token = await storage.getItem("token");
-  choices = ['login', 'register', 'about'];
+  choices = ['browse', 'search','login', 'register', 'about'];
 
   if (token) {
-    choices = ['browse', 'search', 'about', 'logout']
+    choices = ['my projects','browse', 'search', 'about', 'logout']
 
   }
   else{
@@ -163,7 +167,10 @@ const getMenu = async () => {
 
       return true;
     } else if (value === 'browse') {
-      getList();
+      getList(false);
+      return true;
+    }else if (value === 'My Projects') {
+      getList(true);
       return true;
     } else if (value === 'search') {
       getTutorial();
@@ -207,7 +214,8 @@ const login = async () => {
     "password": password
   });
   const options = {
-    hostname: 'terminal.guide',
+    hostname: host,
+    port:port,
     path: '/api/token/',
     method: 'POST',
     headers: {
@@ -233,7 +241,6 @@ const login = async () => {
   req.on('error', (error) => {
     write(error)
   });
-
   req.write(data);
   req.end();
 
@@ -247,7 +254,8 @@ const refresh = async () => {
     "refresh": auth["refresh"]
   });
   const options = {
-    hostname: 'terminal.guide',
+    hostname: host,
+    port:port,
     path: '/api/token/refresh/',
     method: 'POST',
     headers: {
@@ -266,7 +274,7 @@ const refresh = async () => {
       await storage.clear();
       await storage.setItem('token', parsed);
 
-      getList();
+      getList(true);
 
     });
   });
@@ -274,7 +282,6 @@ const refresh = async () => {
   req.on('error', (error) => {
     write("Your session is expired, please login again");
     logout();
-    login();
   });
 
   req.write(data);
@@ -301,7 +308,8 @@ const register = async () => {
   });
 
   const options = {
-    hostname: 'terminal.guide',
+    hostname: host,
+    port:port,
     path: '/api/signup/',
     method: 'POST',
     headers: {
@@ -357,7 +365,7 @@ const register = async () => {
  * @returns {Json} contacts
  */
 
-const getList = async () => {
+const getList = async (mine) => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
   // Define search criteria. The search here is case-insensitive and inexact.
   const auth = await storage.getItem("token");
@@ -365,8 +373,9 @@ const getList = async () => {
     await login();
   }
   var a = https.request({
-    hostname: 'terminal.guide',
-    path: '/tutorial/jsonapi/',
+    hostname: host,
+    port:port,
+    path: mine === true?'tutorial/jsonapi/mine/':'/tutorial/jsonapi/',
     method: 'GET',
     headers: {
       'Authorization': 'Bearer ' + auth['access']
@@ -401,7 +410,7 @@ const getList = async () => {
   a.on('error', async (error) => {
     write(error);
     await refresh();
-    getList();
+    getList(mine);
   });
   a.end();
 };
@@ -420,7 +429,8 @@ const getTutorial = async (name) => {
   const auth = await storage.getItem("token");
 
   https.get({
-    host: 'terminal.guide',
+    hostname: host,
+    port:port,
     path: '/tutorial/json/' + search + '/',
     headers: {
       'Content-Type': 'application/json',
