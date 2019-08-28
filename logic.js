@@ -1,5 +1,4 @@
 const https = require('https');
-//const https = require('http');
 var fuzzy = require('fuzzy');
 
 // Connect to a single MongoDB instance. The connection string could be that of a remote server
@@ -14,8 +13,8 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var spawnSync = require('child_process').spawnSync;
 var child;
-var host = 'terminal.guide';
-var port = 445;
+ var host = 'terminal.guide';
+ var port = 443;
 
 function SortByID(x, y) {
   return x.pk - y.pk;
@@ -35,7 +34,7 @@ marked.setOptions({
 //   -d '{"username": "axyz", "password": "xxx"}' \
 //   http://terminal.guide:8000/api/token/
 
-function write(text,speed) {
+function write(text, speed) {
   var i = text.length;
   while (i--) {
     process.stdout.write(text.charAt(text.length - i - 1));
@@ -65,7 +64,7 @@ const getMenu = async () => {
     choices = ['my projects', 'search', 'browse', 'about', 'switch to browser version', 'logout']
 
   } else {
-    write('welcome to \x1b[36mterminal.guide\033[0m',80);
+    write('welcome to \x1b[36mterminal.guide\033[0m', 80);
 
   }
 
@@ -148,7 +147,7 @@ const getMenu = async () => {
     // }
   ];
 
-  inquirer.prompt(questions).then(answers => {
+  inquirer.prompt(questions).then(async function (answers) {
 
     var value = answers['tutorial']['guide menu'];
 
@@ -163,8 +162,8 @@ const getMenu = async () => {
       register();
       return true;
     } else if (value === 'logout') {
-      logout();
-
+      await logout();
+      getMenu();
       return true;
     } else if (value === 'browse') {
       getList(false);
@@ -181,7 +180,7 @@ const getMenu = async () => {
         "join the open source community and share your install procedures\n" +
         " or use those uploaded by others.\n" +
         "Visit us at https://tutorial.guide\nCopyright BIZ Factory, for legal info go to https://tutorial.guide/terms \n\n";
-      write(text,10);
+      write(text, 10);
 
 
       getMenu();
@@ -265,9 +264,9 @@ const login = async () => {
   });
 
   req.on('error', (error) => {
-    write(error,20)
+    write(error, 20)
   });
-  req.write(data,80);
+  req.write(data, 80);
   req.end();
 
 };
@@ -307,12 +306,13 @@ const refresh = async (mine) => {
     });
   });
 
-  req.on('error', (error) => {
-    write("Your session is expired, please login again",80);
-    logout();
+  req.on('error', async (error) => {
+    write("Your session is expired, please login again", 80);
+    await logout();
+    getMenu();
   });
 
-  req.write(data,20);
+  req.write(data, 20);
   req.end();
 
 };
@@ -321,7 +321,7 @@ const logout = async () => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
 
   await storage.clear();
-  getMenu();
+
 
 };
 
@@ -356,23 +356,23 @@ const register = async () => {
       try {
         var parsed = JSON.parse(body);
         if (!parsed["email"]) {
-          write(body,80);
+          write(body, 80);
           return register();
         }
 
 
-        write("please check your email account " + parsed["email"] + " to complete registration",80);
-        write("Going to login",80);
+        write("please check your email account " + parsed["email"] + " to complete registration", 80);
+        write("Going to login", 80);
         login();
       } catch (e) {
-        write(e,20);
+        write(e, 20);
         return register();
       }
     });
   })
 
   req.on('error', (error) => {
-    write(error,20);
+    write(error, 20);
 
   });
 
@@ -396,13 +396,13 @@ const getList = async (mine) => {
   // Define search criteria. The search here is case-insensitive and inexact.
   const auth = await storage.getItem("token");
   if (!auth && mine) {
-    write("your session expired, please login again",80);
+    write("your session expired, please login again", 80);
     return login();
   }
   var url = mine === true ? '/tutorial/jsonapi/true/' : '/tutorial/jsonapi/false/';
   var headers = {}
 
-  if (mine) {
+  if (mine && auth) {
     headers['Authorization'] = 'Bearer ' + auth['access']
   }
   var a = https.request({
@@ -452,7 +452,7 @@ const getList = async (mine) => {
     });
   });
   a.on('error', async (error) => {
-    write(error,20);
+    write(error, 20);
     await refresh(mine);
     getList(mine);
   });
@@ -483,7 +483,7 @@ const searchApi = (answers, input) => {
           var parsed = JSON.parse(body);
           var results = []
           for (i = 0; i < parsed['results'].length; i++) {
-            results[i] = "[" + parsed['results'][i]['pk'] + "] \x1b[36m"  + parsed['results'][i]['title'] + "\033[0m ("+ parsed['results'][i]['user']+")";
+            results[i] = "[" + parsed['results'][i]['pk'] + "] \x1b[36m" + parsed['results'][i]['title'] + "\033[0m (" + parsed['results'][i]['user'] + ")";
             //var forked = parsed['results'][i].origin > 0 ?"forked/":"";
             //results[i]="[" + parsed['results'][i].pk + "]:\x1b[36m" +forked+parsed['results'][i].title + "\033[0m - " + parsed['results'][i].description+ "("+parsed['results'][i].calls+")";
 
@@ -508,7 +508,7 @@ const searchApi = (answers, input) => {
 
     })
     a.on('error', async (error) => {
-      write(error,20);
+      write(error, 20);
       return reject(error);
     });
     a.end();
@@ -548,15 +548,18 @@ const getTutorial = async (name) => {
   }
   const search = name.name ? name.name : name;
   const auth = await storage.getItem("token");
+  var headers = {
+    'Content-Type': 'application/json'
+  }
+  if (auth && auth['access']) {
+    headers['Authorization'] = 'Bearer ' + auth['access']
+  }
 
   https.get({
     hostname: host,
     port: port,
     path: '/tutorial/json/' + search + '/',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + auth['access']
-    }
+    headers: headers
   }, function (response) {
     // Continuously update stream with data
     var body = '';
@@ -565,7 +568,7 @@ const getTutorial = async (name) => {
     });
     response.on('end', async function () {
       if (!body) {
-        write("\033[31mno recipe found\033[0m",80);
+        write("\033[31mno recipe found\033[0m", 80);
         getMenu();
       } else {
         var parsed = JSON.parse(body);
@@ -614,7 +617,7 @@ const getTutorial = async (name) => {
             child.stdin.on('data', function (data) {
               //Here is where the output goes
 
-              write('\n' + data,10);
+              write('\n' + data, 10);
 
               data = data.toString();
               scriptOutput += data;
@@ -658,7 +661,7 @@ const getTutorial = async (name) => {
                 child = null;
               }
             } catch (e) {
-              write(e,20);
+              write(e, 20);
               write(ans);
             }
 
@@ -673,7 +676,7 @@ const getTutorial = async (name) => {
 
 
         }
-        write("\033[31mfinished\033[0m",80);
+        write("\033[31mfinished\033[0m", 80);
         getMenu();
       }
       // Data received, let us parse it using JSON!
