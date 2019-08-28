@@ -1,5 +1,5 @@
-//const https = require('https');
-const https = require('http');
+const https = require('https');
+//const https = require('http');
 var fuzzy = require('fuzzy');
 
 // Connect to a single MongoDB instance. The connection string could be that of a remote server
@@ -14,8 +14,8 @@ var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var spawnSync = require('child_process').spawnSync;
 var child;
-var host = 'localhost';
-var port = 8000;
+var host = 'terminal.guide';
+var port = 445;
 
 function SortByID(x, y) {
   return x.pk - y.pk;
