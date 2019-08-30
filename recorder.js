@@ -60,7 +60,7 @@ function spawnInstance(buffer,rl) {
 //     }
 //     console.log(scriptOutput)
     var out = buffer.join('\n');
-    fs.writeFile(".buffer.txt", out, (err) => {
+    fs.writeFile("buffer.txt", out, (err) => {
   if (err) console.log(err);
   console.log("Successfully Written to template");
 });

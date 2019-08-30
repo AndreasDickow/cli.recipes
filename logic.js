@@ -207,12 +207,12 @@ async function create() {
         })
 
         addTopic((answers, guide) => {
-          var vim = spawn('nano', ['.buffer.txt'], {stdio: 'inherit'});
+          var vim = spawn('nano', ['buffer.txt'], {stdio: 'inherit'});
           vim.on('exit', function () {
-            fs.readFile(".buffer.txt", "utf8", function (error, data) {
+            fs.readFile("buffer.txt", "utf8", function (error, data) {
               if (error) throw error;
               guide['text'] = data.toString();
-              spawn("sh", ["-c", 'echo "1. my description `cli command default`\n2. next description `next cli command default`\n"> .buffer.txt']);
+              spawn("sh", ["-c", 'echo "1. my description `cli command default`\n2. next description `next cli command default`\n"> buffer.txt']);
               guide['topic'] = answers;
               postTutorial(guide);
             });
