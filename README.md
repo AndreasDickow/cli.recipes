@@ -19,7 +19,7 @@ npm install -g terminalguide
 ## Usage
 
 ```sh
-guide
+recipes start
 ```
 
 ![cli.recipes](https://cli.recipes/static/img/demo.gif)
