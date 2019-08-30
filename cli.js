@@ -1,16 +1,31 @@
 #!/usr/bin/env node
 
+const record = require("./recorder").record;
+
 const program = require('commander');
-
+const version = require('./package.json').version;
 // Require logic.js file and extract controller functions using JS destructuring assignment
-const {getList, getTutorial, getMenu} = require('./logic');
+const getMenu = require('./logic').getMenu;
+const create = require('./logic').create;
 
-  program
-  .version('1.0.0').action(() => {
+
+const main = program
+  .version(version) .description('Main command with subcommand');
+
+  main.command('r').action(() => {
+    console.log("record");
+    record();
+  });
+
+  main.command('m').alias('start').action(() => {
     getMenu();
+  });
+
+  main.command('c').action(() => {
+    create();
   });
 
 
 
 
-program.parse(process.argv);
+main.parse(process.argv);

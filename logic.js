@@ -1,8 +1,7 @@
-const https = require('https');
+// const https = require('https');
+const https = require('http');
 var fuzzy = require('fuzzy');
 
-// Connect to a single MongoDB instance. The connection string could be that of a remote server
-// We assign the connection instance to a constant to be used later in closing the connection
 const marked = require('marked');
 const TerminalRenderer = require('marked-terminal');
 const readline = require('readline');
@@ -12,9 +11,12 @@ var sys = require('sys')
 var exec = require('child_process').exec;
 var spawn = require('child_process').spawn;
 var spawnSync = require('child_process').spawnSync;
+var fs = require('fs');
 var child;
- var host = 'terminal.guide';
- var port = 443;
+
+// var port = 443;
+var host = 'localhost';
+var port = 8000;
 
 function SortByID(x, y) {
   return x.pk - y.pk;
@@ -24,15 +26,6 @@ marked.setOptions({
   // Define custom renderer
   renderer: new TerminalRenderer()
 });
-
-// Converts value to lowercase
-
-
-// curl \
-//   -X POST \
-//   -H "Content-Type: application/json" \
-//   -d '{"username": "axyz", "password": "xxx"}' \
-//   http://terminal.guide:8000/api/token/
 
 function write(text, speed) {
   var i = text.length;
@@ -61,95 +54,28 @@ const getMenu = async () => {
   choices = ['search', 'browse', 'login', 'register', 'about', 'switch to browser version'];
 
   if (token) {
-    choices = ['my projects', 'search', 'browse', 'about', 'switch to browser version', 'logout']
+    choices = ['my projects', 'search', 'create', 'browse', 'about', 'switch to browser version', 'logout']
 
   } else {
-    write('welcome to \x1b[36mterminal.guide\033[0m', 80);
+    write('welcome to \x1b[36mcli.recipes\033[0m', 80);
 
   }
 
 
   var questions = [
-    // {
-    //   type: 'input',
-    //   name: 'phone',
-    //   message: "What's your phone number?",
-    //   validate: function (value) {
-    //     var pass = value.match(
-    //       /^([01]{1})?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$/i
-    //     );
-    //     if (pass) {
-    //       return true;
-    //     }
-    //
-    //     return 'Please enter a valid phone number';
-    //   }
-    // },
+
     {
       type: 'list',
-      name: 'tutorial.guide menu',
+      name: 'tutorial.recipe menu',
       choices: choices
 
     }
-    // {
-    //   type: 'input',
-    //   name: 'quantity',
-    //   message: 'How many do you need?',
-    //   validate: function (value) {
-    //     var valid = !isNaN(parseFloat(value));
-    //     return valid || 'Please enter a number';
-    //   },
-    //   filter: Number
-    // },
-    // {
-    //   type: 'expand',
-    //   name: 'toppings',
-    //   message: 'What about the toppings?',
-    //   choices: [
-    //     {
-    //       key: 'p',
-    //       name: 'Pepperoni and cheese',
-    //       value: 'PepperoniCheese'
-    //     },
-    //     {
-    //       key: 'a',
-    //       name: 'All dressed',
-    //       value: 'alldressed'
-    //     },
-    //     {
-    //       key: 'w',
-    //       name: 'Hawaiian',
-    //       value: 'hawaiian'
-    //     }
-    //   ]
-    // },
-    // {
-    //   type: 'rawlist',
-    //   name: 'beverage',
-    //   message: 'You also get a free 2L beverage',
-    //   choices: ['Pepsi', '7up', 'Coke']
-    // },
-    // {
-    //   type: 'input',
-    //   name: 'comments',
-    //   message: 'Any comments on your purchase experience?',
-    //   default: 'Nope, all good!'
-    // },
-    //
-    // {
-    //   type: 'list',
-    //   name: 'prize',
-    //   message: 'For leaving a comment, you get a freebie',
-    //   choices: ['cake', 'fries'],
-    //   when: function (answers) {
-    //     return answers.comments !== 'Nope, all good!';
-    //   }
-    // }
+
   ];
 
   inquirer.prompt(questions).then(async function (answers) {
 
-    var value = answers['tutorial']['guide menu'];
+    var value = answers['tutorial']['recipe menu'];
 
     if (!value) {
       getMenu();
@@ -165,6 +91,9 @@ const getMenu = async () => {
       await logout();
       getMenu();
       return true;
+    } else if (value === 'create') {
+      create();
+      return true;
     } else if (value === 'browse') {
       getList(false);
       return true;
@@ -175,18 +104,18 @@ const getMenu = async () => {
       search();
       return true;
     } else if (value === 'about') {
-      const text = "\n\n\x1b[36mtutorial.guide\033[0m\nFast forward your installations\n" +
-        "terminal.guide you through complex install procedures in the command line,\n" +
+      const text = "\n\n\x1b[36mtcli.recipes\033[0m\nFast forward your installations\n" +
+        "cli.recipes you through complex install procedures in the command line,\n" +
         "join the open source community and share your install procedures\n" +
         " or use those uploaded by others.\n" +
-        "Visit us at https://tutorial.guide\nCopyright BIZ Factory, for legal info go to https://tutorial.guide/terms \n\n";
+        "Visit us at https://cli.recipes\nCopyright BIZ Factory, for legal info go to https://cli.recipes/terms \n\n";
       write(text, 10);
 
 
       getMenu();
       return true;
     } else if (value === 'switch to browser version') {
-      var url = 'https://terminal.guide';
+      var url = 'https://cli.recipes';
       var start = (process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open');
       require('child_process').exec(start + ' ' + url);
       getMenu();
@@ -194,7 +123,113 @@ const getMenu = async () => {
   });
 }
 
-function confirmQuestion(input) {
+
+async function create() {
+    await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
+  // Define search criteria. The search here is case-insensitive and inexact.
+  const auth = await storage.getItem('token');
+  if (!auth || !auth['refresh']) {
+    console.log("please login and navigate to create to finish your record");
+    return getMenu();
+  }
+  refresh(true);
+  var guide = {
+    "title": "",
+    "link": "",
+    "description": "",
+    "text": "",
+    "topic": []
+  };
+  var start = [
+    {
+      type: 'confirm',
+      name: 'tutorial.create',
+      message: 'Continue to create a new recipe',
+      default: false
+    }
+  ]
+  var questions = [
+    {
+      type: 'input',
+      name: 'tutorial.title',
+      message: "Enter a title for your recipe",
+      validate: function (value) {
+        if (value.length < 2) {
+          return 'Enter at least 2 characters';
+        } else if (value.length > 50) {
+          return 'Your title should not be longer than 50 characters'
+        }
+        return true;
+
+      }
+    },
+    {
+      type: 'input',
+      name: 'tutorial.link',
+      message: "Add a link to your recipe",
+      validate: function (value) {
+        if (value) {
+          const pattern = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/;
+          var pass = value.match(
+            pattern
+          );
+          if (pass) {
+            return true;
+          }
+
+          return 'Please enter a valid url';
+
+        }
+        return true;
+      }
+    },
+    {
+      type: 'input',
+      name: 'tutorial.description',
+      message: "Describe your recipe",
+      validate: function (value) {
+        if (value.length < 10) {
+          return 'Enter at least 10 characters in your description';
+        } else if (value.length > 500) {
+          return 'Your title should not be longer than 50 characters'
+        }
+        return true;
+      }
+    }
+  ];
+  inquirer.prompt(start).then(answers => {
+    var confirm = answers['tutorial']['create'];
+    if (confirm) {
+      inquirer.prompt(questions).then(answers => {
+        Object.keys(answers['tutorial']).forEach(k => {
+          if(answers['tutorial'][k])
+            guide[k] = answers['tutorial'][k];
+        })
+
+        addTopic((answers, guide) => {
+          var vim = spawn('nano', ['.buffer.txt'], {stdio: 'inherit'});
+          vim.on('exit', function () {
+            fs.readFile(".buffer.txt", "utf8", function (error, data) {
+              if (error) throw error;
+              guide['text'] = data.toString();
+              spawn("sh", ["-c", 'echo "1. my description `cli command default`\n2. next description `next cli command default`\n"> .buffer.txt']);
+              guide['topic'] = answers;
+              postTutorial(guide);
+            });
+          });
+        }, [], guide);
+
+
+      });
+
+    } else {
+      getMenu();
+    }
+  });
+}
+
+
+function confirmQuestion(input,callback,param) {
   var questions = [
     {
       type: 'confirm',
@@ -208,8 +243,11 @@ function confirmQuestion(input) {
     if (confirm) {
       getTutorial(input);
 
-    } else {
-      search();
+    } else if(param){
+      callback(param);
+    }
+    else{
+      callback();
     }
   });
 
@@ -224,7 +262,6 @@ function askQuestion(query) {
 
   return new Promise(resolve => rl.question(query, ans => {
     rl.close();
-
     resolve(ans);
   }))
 }
@@ -266,7 +303,50 @@ const login = async () => {
   req.on('error', (error) => {
     write(error, 20)
   });
-  req.write(data, 80);
+  req.write(data);
+  req.end();
+
+};
+
+const postTutorial = async (guide) => {
+  await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
+  // Define search criteria. The search here is case-insensitive and inexact.
+  const auth = await storage.getItem('token');
+  if (!auth || !auth['refresh']) {
+    return logout();
+  }
+  // Define search criteria. The search here is case-insensitive and inexact.
+  const data = JSON.stringify(guide);
+  const options = {
+    hostname: host,
+    port: port,
+    path: '/tutorial/create/',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length,
+      'Authorization':  'Bearer ' + auth['access']
+    }
+  };
+  const req = https.request(options, (res) => {
+
+    var body = '';
+    res.on('data', function (d) {
+      body += d;
+    });
+    res.on('end', function () {
+      console.log(body);
+      write("created");
+
+      getMenu();
+
+    });
+  });
+
+  req.on('error', (error) => {
+    write(error, 20)
+  });
+  req.write(data);
   req.end();
 
 };
@@ -312,7 +392,7 @@ const refresh = async (mine) => {
     getMenu();
   });
 
-  req.write(data, 20);
+  req.write(data);
   req.end();
 
 };
@@ -382,15 +462,6 @@ const register = async () => {
 };
 
 
-/**
- * @function  [addContact]
- * @returns {String} Status
- */
-/**
- * @function  [getContact]
- * @returns {Json} contacts
- */
-
 const getList = async (mine) => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
   // Define search criteria. The search here is case-insensitive and inexact.
@@ -402,10 +473,10 @@ const getList = async (mine) => {
   var url = mine === true ? '/tutorial/jsonapi/true/' : '/tutorial/jsonapi/false/';
   var headers = {}
 
-  if (mine && auth) {
+  if ( auth) {
     headers['Authorization'] = 'Bearer ' + auth['access']
   }
-  var a = https.request({
+  var req = https.request({
     hostname: host,
     port: port,
     path: url,
@@ -420,8 +491,8 @@ const getList = async (mine) => {
     response.on('end', async function () {
       // Data received, let us parse it using JSON!
       var parsed = JSON.parse(body);
-
-      parsed.sort(SortByID);
+      if(parsed.sort)
+        parsed.sort(SortByID);
       choices = []
       choices.push("[x] back to menu");
 
@@ -445,55 +516,42 @@ const getList = async (mine) => {
         if (result === 'x') {
           getMenu();
         } else {
-          confirmQuestion(result);
+          confirmQuestion(result,getList,mine);
         }
       });
 
     });
   });
-  a.on('error', async (error) => {
+  req.on('error', async (error) => {
     write(error, 20);
     await refresh(mine);
     getList(mine);
   });
-  a.end();
+  req.end();
 };
 
 
 const searchApi = (answers, input) => {
-
-
   return new Promise((resolve, reject) => {
-    var a = https.request({
+    var req = https.request({
       hostname: host,
       port: port,
       path: '/tutorial/apisearch/?q=' + encodeURI(input),
       method: 'GET',
       headers: {}
     }, function (response) {
-      // Continuously update stream with data
       var body = '';
       response.on('data', function (d) {
         body += d;
       });
       response.on('end', function () {
-        // Data received, let us parse it using JSON!
         try {
-
           var parsed = JSON.parse(body);
           var results = []
           for (i = 0; i < parsed['results'].length; i++) {
             results[i] = "[" + parsed['results'][i]['pk'] + "] \x1b[36m" + parsed['results'][i]['title'] + "\033[0m (" + parsed['results'][i]['user'] + ")";
-            //var forked = parsed['results'][i].origin > 0 ?"forked/":"";
-            //results[i]="[" + parsed['results'][i].pk + "]:\x1b[36m" +forked+parsed['results'][i].title + "\033[0m - " + parsed['results'][i].description+ "("+parsed['results'][i].calls+")";
-
           }
-          // var fuzzyResult = fuzzy.filter(input, results);
-          // resolve(
-          //   fuzzyResult.map(function (el) {
-          //     return el.original;
-          //   })
-          // );
+
           results[results.length] = '[x] back to Menu'
           resolve(results);
         } catch (e) {
@@ -505,15 +563,70 @@ const searchApi = (answers, input) => {
           );
         }
       });
-
-    })
-    a.on('error', async (error) => {
+    });
+    req.on('error', async (error) => {
       write(error, 20);
       return reject(error);
     });
-    a.end();
+    req.end();
   });
 };
+const topicSearchApi = (answers, input) => {
+  return new Promise((resolve, reject) => {
+    var req = https.request({
+      hostname: host,
+      port: port,
+      path: '/tutorial/apitopics/?q=' + encodeURI(input),
+      method: 'GET',
+      headers: {}
+    }, function (response) {
+      var body = '';
+      response.on('data', function (d) {
+        body += d;
+      });
+      response.on('end', function () {
+        try {
+          var parsed = JSON.parse(body);
+          var results = []
+          for (i = 0; i < parsed['results'].length; i++) {
+            results[i] = "[" + parsed['results'][i]['pk'] + "] \x1b[36m" + parsed['results'][i]['title'] + "\033[0m ";
+          }
+
+          results[results.length] = '[done] continue to next to the tutorial content editor';
+          resolve(results);
+        } catch (e) {
+          resolve(['[done] continue to next to the tutorial content editor']);
+        }
+      });
+    });
+    req.on('error', async (error) => {
+      write(error, 20);
+      return reject(error);
+    });
+    req.end();
+  });
+};
+
+const addTopic = async (callback, answers, guide) => {
+
+  inquirer.registerPrompt('autocomplete', require('inquirer-autocomplete-prompt'));
+  inquirer.prompt([{
+    type: 'autocomplete',
+    name: 'topic',
+    message: 'Add some keywords',
+    source: function (answersSoFar, input) {
+      return topicSearchApi(answersSoFar, input);
+    }
+  }]).then(function (answer) {
+    result = answer['topic'].match(/\[([^)]+)\]/)[1];
+    if (result === 'done') {
+      callback(answers, guide);
+    } else {
+      answers.push(parseInt(result));
+      addTopic(callback, answers, guide);
+    }
+  });
+}
 
 
 const search = async () => {
@@ -530,11 +643,10 @@ const search = async () => {
     if (result === 'x') {
       getMenu();
     } else {
-      confirmQuestion(result)
+      confirmQuestion(result,search,null);
     }
   });
 }
-
 
 /**
  * @function  [getContact]
@@ -613,25 +725,25 @@ const getTutorial = async (name) => {
               data = data.toString();
               scriptOutput += data;
             });
-            child.stdin.setEncoding('utf8');
-            child.stdin.on('data', function (data) {
-              //Here is where the output goes
+            // child.stdin.setEncoding('utf8');
+            // child.stdin.on('data', function (data) {
+            //   //Here is where the output goes
+            //
+            //   write('\n' + data, 10);
+            //
+            //   data = data.toString();
+            //   scriptOutput += data;
+            // });
 
-              write('\n' + data, 10);
-
-              data = data.toString();
-              scriptOutput += data;
-            });
-
-            child.stderr.setEncoding('utf8');
-            child.stderr.on('data', function (data) {
-              //Here is where the error output goes
-
-              //console.log('stderr: ' + data);
-
-              data = data.toString();
-              scriptOutput += data;
-            });
+            // child.stderr.setEncoding('utf8');
+            // child.stderr.on('data', function (data) {
+            //   //Here is where the error output goes
+            //
+            //   //console.log('stderr: ' + data);
+            //
+            //   data = data.toString();
+            //   scriptOutput += data;
+            // });
 
             child.on('close', function (code) {
               //Here you can get the exit code of the script
@@ -689,4 +801,4 @@ const getTutorial = async (name) => {
 };
 
 // Export all methods
-module.exports = {getList, getTutorial, getMenu};
+module.exports = { getMenu,create};

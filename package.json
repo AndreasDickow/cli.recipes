@@ -43,7 +43,6 @@
   },
   "homepage": "https://github.com/AndreasDickow/terminalguide#readme",
   "bin": {
-    "guide": "./cli.js",
-    "terminalguide": "./cli.js"
+    "recipes": "./cli.js"
   }
 }

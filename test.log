@@ -1,0 +1,500 @@
+  188  ionic cordova build android 
+  189  ionic cordova build android 
+  190  ionic cordova emulate android -lc --debug  --verbose 
+  191  adb devices
+  192  adb devices
+  193  adb devices
+  194  adb devices
+  195  adb devices
+  196  adb devices
+  197  adb devices
+  198  adb devices
+  199  adb devices
+  200  adb devices
+  201  adb devices
+  202  adb devices
+  203  adb devices
+  204  adb kill-server
+  205  adb start-server
+  206  adb kill-server
+  207  adb start-server
+  208  adb devices
+  209  adb devices
+  210  adb devices
+  211  adb devices
+  212  adb devices
+  213  adb devices
+  214  adb devices
+  215  adb devices
+  216  adb devices
+  217  adb devices
+  218  adb devices
+  219  adb devices
+  220  ionic cordova emulate android -lc --debug  --verbose 
+  221  ionic cordova emulate android -lc --debug  --verbose 
+  222  ionic cordova emulate android  
+  223  ionic cordova build android  
+  224  ionic cordova emulate android  
+  225  ionic cordova build android  
+  226  ionic cordova emulate android  
+  227  ionic cordova emulate android  
+  228  ionic cordova build android  
+  229  ionic generate page createproject
+  230  ionic cordova emulate android -lc --debug  --verbose 
+  231  adb kill-server
+  232  adb start-server
+  233  ionic cordova emulate android -lc --debug  --verbose 
+  234  ionic cordova emulate android  
+  235  ionic cordova emulate android  
+  236  ionic cordova emulate android -lc --debug  --verbose 
+  237  adb devices
+  238  ionic cordova emulate android  --debug  --verbose 
+  239  adb ps
+  240  adb -s emulator-5584 shell ps
+  241  adb -s emulator-5584 shell psadb -s emulator-5584 shell ps
+  242  adb -s emulator-5584 shell ps
+  243  adb -s emulator-5584 shell ps
+  244  adb -s emulator-5584 shell ps
+  245  adb -s emulator-5584 shell ps
+  246  adb -s emulator-5584 shell ps
+  247  adb -s emulator-5584 shell ps
+  248  adb -s emulator-5584 shell ps
+  249  adb -s emulator-5584 shell ps
+  250  adb -s emulator-5584 shell ps
+  251  adb -s emulator-5584 shell ps
+  252  ionic cordova emulate android  --debug  --verbose 
+  253  ionic cordova emulate android 
+  254  ionic cordova build android  
+  255  adb install 
+  256  adb install /Users/andreasdickow/Documents/github/ionic4-starter-app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+  257  adb install /Users/andreasdickow/Documents/github/ionic4-starter-app/platforms/android/app/build/outputs/apk/debug/app-debug.apk --force
+  258  adb install /Users/andreasdickow/Documents/github/ionic4-starter-app/platforms/android/app/build/outputs/apk/debug/app-debug.apk -force
+  259  adb install /Users/andreasdickow/Documents/github/ionic4-starter-app/platforms/android/app/build/outputs/apk/debug/app-debug.apk -f
+  260  adb install /Users/andreasdickow/Documents/github/ionic4-starter-app/platforms/android/app/build/outputs/apk/debug/app-debug.apk 
+  261  ionic cordova plugin add cordova-plugin-vibration
+  262  npm install @ionic-native/vibration
+  263  ionic cordova build android  
+  264  adb install /Users/andreasdickow/Documents/github/ionic4-starter-app/platforms/android/app/build/outputs/apk/debug/app-debug.apk 
+  265  ionic cordova build android  
+  266  adb install /Users/andreasdickow/Documents/github/ionic4-starter-app/platforms/android/app/build/outputs/apk/debug/app-debug.apk 
+  267  adb devices
+  268  ionic cordova emulate android  --debug  --verbose 
+  269  ionic cordova emulate android  --debug  --verbose -lc
+  270  ionic cordova build android  
+  271  adb devices
+  272  adb devices
+  273  adb devices
+  274  adb devices
+  275  adb devices
+  276  adb devices
+  277  adb devices
+  278  adb devices
+  279  adb kill-server
+  280  adb start-server
+  281  adb devices
+  282  adb devices
+  283  adb devices
+  284  adb devices
+  285  adb devices
+  286  adb devices
+  287  adb kill-server
+  288  adb start-server
+  289  adb devices
+  290  adb kill-server
+  291  adb start-server
+  292  adb devices
+  293  adb devices
+  294  adb devices
+  295  adb devices
+  296  adb devices
+  297  adb devices
+  298  adb devices
+  299  adb devices
+  300  adb devices
+  301  adb devices
+  302  adb devices
+  303  adb devices
+  304  adb kill-server
+  305  adb start-server
+  306  adb devices
+  307  adb start-server
+  308  adb devices
+  309  adb devices
+  310  adb devices
+  311  adb devices
+  312  adb kill-server
+  313  adb start-server
+  314  adb devices
+  315  adb devices
+  316  adb devices
+  317  adb devices
+  318  adb devices
+  319  adb devices
+  320  adb devices
+  321  adb devices
+  322  adb devices
+  323  adb devices
+  324  adb devices
+  325  adb devices
+  326  adb devices
+  327  adb devices
+  328  adb devices
+  329  adb devices
+  330  adb devices
+  331  adb devices
+  332  adb devices
+  333  adb kill-server
+  334  adb start-server
+  335  adb kill-server
+  336  adb start-server
+  337  adb device
+  338  adb device
+  339  adb start-server
+  340  adb devices
+  341  adb devices
+  342  adb devices
+  343  adb list
+  344  adb devices -l
+  345  adb devices -l
+  346  cd ..
+  347  cd ..
+  348  cd androidbilder/
+  349  adb pull /storage/6130-3134/DCIM/Camera
+  350  adb devicesadb -s emulator-5584 shell ps
+  351  adb -s emulator-5584 shell ps
+  352  adb -s emulator-5584 shell ps
+  353  adb -s emulator-5584 shell ps
+  354  adb -s emulator-5584 shell ps
+  355  adb -s emulator-5584 shell ps
+  356  adb -s emulator-5584 shell ps
+  357  cd ..
+  358  cd megovsource/apps/android/
+  359  cd 2019-06-20-umweltinfo/
+  360  adb devices
+  361  adb devices
+  362  adb devices
+  363  adb devices
+  364  adb devices
+  365  adb devices
+  366  adb kill-server
+  367  adb start-server
+  368  adb devices
+  369  adb devices
+  370  adb devices
+  371  adb devices
+  372  adb devices
+  373  adb install app-release\ \(2\).apk 
+  374  '/Applications/Postgres.app/Contents/Versions/9.6/bin'/psql -p5432
+  375  python manage.py s
+  376  pip install tensorflow
+  377  pip install tensorflow@1.13.1
+  378  pip install tensorflow#1.13.1
+  379  pip install tensorflow==1.13.1
+  380  pip install --ignore-installed --upgrade  https://github.com/lakshayg/tensorflow-build/blob/master/tensorflow-1.8.0-cp36-cp36m-macosx_10_7_x86_64.whl
+  381  pip install --ignore-installed --upgrade https://github.com/lakshayg/tensorflow-build/releases/download/tf1.13.1-ubuntu16.04-py3/tensorflow-1.13.1-cp37-cp37m-macosx_10_9_x86_64.whl
+  382  pip install --ignore-installed --upgrade  https://github.com/lakshayg/tensorflow-build/blob/master/tensorflow-1.8.0-cp36-cp36m-macosx_10_7_x86_64.whl
+  383  pip uninstall tensorflow
+  384  pip install tensorflow
+  385  python manage.py shell
+  386  python manage.py shell
+  387  python manage.py shell
+  388  python manage.py shell
+  389  python manage.py shell
+  390  pip install gensim
+  391  python
+  392  '/Applications/Postgres.app/Contents/Versions/9.6/bin'/psql -p5432
+  393  ssh root@web.bizfactory.tec
+  394  ssh root@web.bizfactory.tech
+  395  scp /Users/andreasdickow/Downloads/86f0fca652151e835b5db2e3fa24de81.ico.zip root@assets.bizfactory.tech:/tmp
+  396  ssh root@assets.bizfactory.tech
+  397  scp /Users/andreasdickow/Downloads/86f0fca652151e835b5db2e3fa24de81.ico.zip root@assets.bizfactory.tech:/tmp/ico.zip
+  398  ssh root@assets.bizfactory.tech
+  399  source ~/typpt_backend/instabot/bin/a
+  400  source ~/typpt_backend/instabot/bin/activate
+  401  pip install --upgrade google-api-python-client
+  402  pip install --upgrade google-auth-oauthlib google-auth-httplib2
+  403  ssh root@bitlab.biz-factory.de
+  404  ssh root@gitlab.biz-factory.de
+  405  ssh root@gitlab.biz-factory.de
+  406  sudo pecl install xdebug
+  407  vi /etc/php.ini
+  408  sudo vi /etc/php.ini
+  409  php -i | grep "Xdebug"
+  410  reboot now
+  411  sudo reboot now
+  412  solr create -c tester -n basic_config  
+  413  brew service solr restart
+  414  solr restart -f
+  415  solr restart -f
+  416  cd /usr/local/Cellar/solr/8.2.0/server/solr/tester/conf/
+  417  ls
+  418  vi ../../configsets/sample_techproducts_configs/conf/elevate.xml 
+  419  cp ../../configsets/sample_techproducts_configs/conf/elevate.xml .
+  420  solr restart -f
+  421  solr create_core -c default -p 8983
+  422  solr restart -f
+  423  solr create_core -c tester -p 8983
+  424  solr restart -f
+  425  solr restart -f
+  426  solr restart -f
+  427  ssh root@go4global.bizfactory.tech
+  428  ssh root@go4global-prod.bizfactory.tech
+  429  ssh root@go4global-prod.bizfactory.tech
+  430  ls
+  431  ssh root@go4global-prod.bizfactory.tech
+  432  ssh root@go4global-prod.bizfactory.tech
+  433  ssh root@go4global-prod.bizfactory.tech
+  434  solr restart -f
+  435  ssh root@go4global-prod.bizfactory.tech
+  436  solr restart -f
+  437  solr restart -f
+  438  ssh root@go4global.holiday
+  439  solr restart -f
+  440  solr restart -f
+  441  ssh root@go4global.holiday
+  442  ssh root@go4global.holiday
+  443  ssh root@go4global.holiday
+  444  ssh root@go4global.holiday
+  445  ssh root@go4global.holiday
+  446  ssh root@go4global.holiday
+  447  solr restart -f
+  448  ssh root@185.183.159.3
+  449  2A5Wkun94YEN1Kq
+  450  ssh root@185.183.159.3
+  451  ssh root@185.183.159.3
+  452  ssh root@185.183.159.3
+  453  source ~/typpt_backend/clirecipes/bin/activate
+  454  pip install django-haystack
+  455  class NoteIndex(indexes.SearchIndex, indexes.Indexable):
+  456      text = indexes.CharField(document=True, use_template=True)
+  457      author = indexes.CharField(model_attr='user')
+  458      pub_date = indexes.DateTimeField(model_attr='pub_date')
+  459      def get_model(self):
+  460          return Note
+  461      def index_queryset(self, using=None):
+  462          """Used when the entire index for model is updated."""
+  463  ./manage.py build_solr_schema --configure-directory=/Users/andreasdickow/solr/server/solr/tester/conf --reload-core
+  464  ./manage.py build_solr_schema --configure-directory=/Users/andreasdickow/solr/server/solr/tester/conf --reload-core
+  465  pip install pysolr
+  466  ./manage.py makemigrations
+  467  ./manage.py makemigrations
+  468  ./manage.py migrate
+  469  ./manage.py build_solr_schema
+  470  ./manage.py makemigrations
+  471  ./manage.py build_solr_schema --configure-directory=/Users/andreasdickow/solr/server/solr/tester/conf --reload-core
+  472  pip install django-haystack
+  473  ./manage.py build_solr_schema --configure-directory=/Users/andreasdickow/solr/server/solr/tester/conf --reload-core
+  474  pip freeze > requirements.txt 
+  475  vi requirements.txt 
+  476  ./manage.py makemigrations
+  477  ./manage.py makemigrations
+  478  ./manage.py migrate
+  479  ./manage.py build_solr_schema --configure-directory=/usr/local/Cellar/solr/8.2.0/server/solr/tester/conf --reload-core
+  480  ./manage.py build_solr_schema --configure-directory=/usr/local/Cellar/solr/8.2.0/server/solr/tester/conf --reload-core tester
+  481  ./manage.py build_solr_schema --configure-directory=/usr/local/Cellar/solr/8.2.0/server/solr/tester/conf --reload-core tester
+  482  sudo su
+  483  git add .
+  484  git commit -m"latest:
+  485  "
+  486  git push origin mastert
+  487  git push origin master
+  488  ssh root@cli.recipes
+  489  ssh root@94.16.123.182
+  490  ping cli.recipes
+  491  ping terminal.guide
+  492  ssh root@terminal.guide
+  493  ssh root@terminal.guide
+  494  ssh root@terminal.guide
+  495  ssh root@terminal.guide
+  496  ssh root@terminal.guide
+  497  ssh root@terminal.guide
+  498  /opt/solr
+  499  ssh root@terminal.guide
+  500  . solr
+  501  cd Documents/megovsource/backend/
+  502  git add .
+  503  git commit -m"BayIFS Geateway Fix"
+  504  git push
+  505  git pull
+  506  rm -rf forschungsvorhaben/target/
+  507  git pull
+  508  git add .
+  509  git commit -m"BayIFS Geateway Fix"
+  510  git pull
+  511  git push
+  512  cd ..
+  513  cd /Users/andreasdickow/Documents/github/
+  514  cd recipes-cli-interface/
+  515  ls
+  516  node cli
+  517  node cli
+  518  node cli
+  519  node cli
+  520  node cli
+  521  git add .
+  522  git checkout dev
+  523  git commit -m"dev init"
+  524  git push origin dev
+  525  git branch dev
+  526  git push origin dev
+  527  node cli
+  528  node cli
+  529  node cli
+  530  node cli
+  531  node cli
+  532  node cli
+  533  node cli
+  534  node cli
+  535  node cli
+  536  node cli
+  537  node cli
+  538  node cli
+  539  node cli
+  540  node cli
+  541  node cli
+  542  node cli
+  543  node cli
+  544  node cli
+  545  node cli
+  546  node cli
+  547  node cli
+  548  node cli
+  549  node cli
+  550  yarn add inquirer-autocomplete-prompt
+  551  node cli
+  552  node cli
+  553  node cli
+  554  node cli
+  555  node cli
+  556  node cli
+  557  node cli
+  558  node cli
+  559  node cli
+  560  node cli
+  561  node cli
+  562  yarn add fuzzy
+  563  node cli
+  564  node cli
+  565  node cli
+  566  node cli
+  567  node cli
+  568  node cli
+  569  node cli
+  570  node cli
+  571  node cli
+  572  node cli
+  573  node cli
+  574  node cli
+  575  node cli
+  576  node cli
+  577  node cli
+  578  node cli
+  579  node cli
+  580  node cli
+  581  node cli
+  582  node cli
+  583  node cli
+  584  node cli
+  585  node cli
+  586  node cli
+  587  node cli
+  588  node cli
+  589  node cli
+  590  node cli
+  591  node cli
+  592  node cli
+  593  node cli
+  594  node cli
+  595  node cli
+  596  node cli
+  597  node cli
+  598  node cli
+  599  node cli
+  600  node cli
+  601  node cli
+  602  node cli
+  603  ssh root@terminal.guide
+  604  ssh root@144.76.173.218
+  605  ssh root@144.76.173.218
+  606  ssh root@144.76.173.218
+  607  node cli
+  608  node cli
+  609  node cli
+  610  node cli
+  611  node cli
+  612  node cli
+  613  node cli
+  614  touch .buffer.txt
+  615  node cli
+  616  node cli
+  617  node cli
+  618  node cli
+  619  node cli
+  620  node cli
+  621  node cli
+  622  node cli
+  623  node cli
+  624  node cli
+  625  node cli
+  626  node cli
+  627  node cli
+  628  node cli
+  629  node cli
+  630  node cli
+  631  node cli
+  632  cd ..
+  633  cd clirecipes/
+  634  cd engine/templates/search/
+  635  ls
+  636  cd indexes/
+  637  ls
+  638  cd datasources/
+  639  ls
+  640  sudo vi topic_text.txt
+  641  cd ..
+  642  cd ..
+  643  cd ..
+  644  cd ..
+  645  cd ..
+  646  ./manage.py update_index
+  647  ./manage.py updateindex
+  648  source ~/typpt_backend/clirecipes/bin/activate
+  649  ./manage.py updateindex
+  650  ./manage.py update_index
+  651  cd ..
+  652  cd recipes-cli-interface/
+  653  ls
+  654  node cli
+  655  node cli
+  656  node cli
+  657  node cli
+  658  node cli
+  659  node cli
+  660  node cli
+  661  node cli
+  662  node cli
+  663  node cli
+  664  node cli
+  665  node cli
+  666  cd ..
+  667  cd clirecipes/
+  668  ./manage.py makemigrations
+  669  ./manage.py migrate
+  670  cd ..
+  671  cd recipes-cli-interface/
+  672  node cli
+  673  node cli
+  674  node cli
+  675  node cli
+  676  node cli
+  677  node cli
+  678  node cli
+  679  node cli
+  680  node cli
+  681  node cli
+  682  node cli
+  683  node cli
+  684  node cli
+  685  node cli
+  686  node cli
+  687  history > test.log

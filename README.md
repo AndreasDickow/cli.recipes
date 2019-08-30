@@ -1,14 +1,14 @@
-<h1 align="center">Welcome to terminal.guide 👋</h1>
+<h1 align="center">Welcome to cli.recipes 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
-  <a href="terminal.guied/docs">
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.7-blue.svg?cacheSeconds=2592000" />
+  <a href="https://cli.recipes/docs">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
   </a>
 </p>
 
 > terminal.guide guides you through complex install procedures in the command line, join the open source community and share your install procedures or use those uploaded by others.
 
-### 🏠 [https://terminal.guide](https://terminal.guide)
+### 🏠 [https://cli.recipes](https://cli.recipes)
 
 ## Install
 
@@ -22,9 +22,8 @@ npm install -g terminalguide
 guide
 ```
 
-<p>
-<img alt="preview" src="https://terminal.guide/static/img/demo.gif" />
-</p>
+![cli.recipes](https://cli.recipes/static/img/demo.gif)
+
 
 ## Author
 
