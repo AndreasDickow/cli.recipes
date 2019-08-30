@@ -1,5 +1,5 @@
 // const https = require('https');
-const https = require('http');
+const https = require('https');
 var fuzzy = require('fuzzy');
 
 const marked = require('marked');
@@ -14,9 +14,9 @@ var spawnSync = require('child_process').spawnSync;
 var fs = require('fs');
 var child;
 
-// var port = 443;
-var host = 'localhost';
-var port = 8000;
+var port = 443;
+var host = 'cli.recipes';
+
 
 function SortByID(x, y) {
   return x.pk - y.pk;
