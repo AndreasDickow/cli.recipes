@@ -230,11 +230,14 @@ async function create() {
 
 
 function confirmQuestion(input,callback,param) {
+       var url = 'https://cli.recipes/tutorial/guide/'+input+'/link/';
+      var start = (process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open');
+      require('child_process').exec(start + ' ' + url);
   var questions = [
     {
       type: 'confirm',
       name: 'tutorial.start',
-      message: 'Start tutorial?',
+      message: '(Overview opened in browser) Start tutorial?',
       default: false
     }
   ];
@@ -516,7 +519,9 @@ const getList = async (mine) => {
         if (result === 'x') {
           getMenu();
         } else {
-          confirmQuestion(result,getList,mine);
+
+
+      confirmQuestion(result,getList,mine);
         }
       });
 
