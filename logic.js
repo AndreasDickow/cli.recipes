@@ -51,10 +51,10 @@ const getMenu = async () => {
   if (token) {
     refresh(true)
   }
-  choices = ['search',  'login', 'register', 'about', 'switch to browser version'];
+  choices = ['search',  'login', 'register', 'about'];
 
   if (token) {
-    choices = [ 'search','my projects', 'create',  'about', 'switch to browser version', 'logout']
+    choices = [ 'search','my projects', 'create',  'about',  'logout']
 
   } else {
     write('\n\x1b[36mcli.recipes\033[0m - a search engine for unix/linux system admins', 0);
@@ -112,11 +112,6 @@ const getMenu = async () => {
 
       getMenu();
       return true;
-    } else if (value === 'switch to browser version') {
-      var url = 'https://cli.recipes';
-      var start = (process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open');
-      require('child_process').exec(start + ' ' + url);
-      getMenu();
     }
   });
 }
