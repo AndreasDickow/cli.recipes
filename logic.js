@@ -51,13 +51,13 @@ const getMenu = async () => {
   if (token) {
     refresh(true)
   }
-  choices = ['search', 'browse', 'login', 'register', 'about', 'switch to browser version'];
+  choices = ['search',  'login', 'register', 'about', 'switch to browser version'];
 
   if (token) {
-    choices = ['my projects', 'search', 'create', 'browse', 'about', 'switch to browser version', 'logout']
+    choices = [ 'search','my projects', 'create',  'about', 'switch to browser version', 'logout']
 
   } else {
-    write('welcome to \x1b[36mcli.recipes\033[0m', 80);
+    write('\n\x1b[36mcli.recipes\033[0m - a search engine for unix/linux system admins', 0);
 
   }
 
@@ -94,9 +94,7 @@ const getMenu = async () => {
     } else if (value === 'create') {
       create();
       return true;
-    } else if (value === 'browse') {
-      getList(false);
-      return true;
+
     } else if (value === 'my projects') {
       getList(true);
       return true;
@@ -465,15 +463,15 @@ const register = async () => {
 };
 
 
-const getList = async (mine) => {
+const getList = async () => {
   await storage.init({expiredInterval: 14 * 24 * 60 * 60 * 1000});
   // Define search criteria. The search here is case-insensitive and inexact.
   const auth = await storage.getItem("token");
-  if (!auth && mine) {
+  if (!auth ) {
     write("your session expired, please login again", 80);
     return login();
   }
-  var url = mine === true ? '/tutorial/jsonapi/true/' : '/tutorial/jsonapi/false/';
+  var url =  '/tutorial/jsonapi/true/' ;
   var headers = {}
 
   if ( auth) {

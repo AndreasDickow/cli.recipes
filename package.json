@@ -1,6 +1,6 @@
 {
   "name": "cli.recipes",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "cli.js",
   "license": "MIT",
   "dependencies": {
@@ -13,7 +13,7 @@
     "marked-terminal": "^3.3.0",
     "node-persist": "^3.0.5"
   },
-  "description": "<h1 align=\"center\">Welcome to cli.recipes 👋</h1> <p>   <img alt=\"Version\" src=\"https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000\" />   <a href=\"https://cli.recipes/docs\">     <img alt=\"Documentation\" src=\"https://img.shields.io/badge/documentation-yes-brightgreen.svg\" target=\"_blank\" />   </a> </p>",
+  "description": "<h1 align=\"center\">Welcome to cli.recipes 👋</h1> <p>   <img alt=\"Version\" src=\"https://img.shields.io/badge/version-1.0.4-blue.svg?cacheSeconds=2592000\" />   <a href=\"https://cli.recipes/docs\">     <img alt=\"Documentation\" src=\"https://img.shields.io/badge/documentation-yes-brightgreen.svg\" target=\"_blank\" />   </a> </p>",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
