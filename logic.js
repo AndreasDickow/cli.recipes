@@ -547,7 +547,7 @@ const searchApi = (answers, input) => {
           var parsed = JSON.parse(body);
           var results = []
           for (i = 0; i < parsed['results'].length; i++) {
-            results[i] = "[" + parsed['results'][i]['pk'] + "] \x1b[36m" + parsed['results'][i]['title'] + "\033[0m (" + parsed['results'][i]['user'] + ")";
+            results[i] = " \x1b[36m" + parsed['results'][i]['title'] + "\033[0;30m [" + parsed['results'][i]['pk'] + "]\033[0m" ;
           }
 
           results[results.length] = '[x] back to Menu'
@@ -637,7 +637,7 @@ const search = async () => {
       return searchApi(answersSoFar, input);
     }
   }]).then(function (answers) {
-    result = answers['topic'].match(/\[([^)]+)\]/)[1];
+    result = answers['topic'].match(/\[[0-9]+\]/)[0].replace(/\]/,'').replace(/\[/,'');
     if (result === 'x') {
       getMenu();
     } else {
