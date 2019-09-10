@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to cli.recipes 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.6-blue.svg?cacheSeconds=2592000" />
   <a href="https://cli.recipes/docs">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
   </a>
@@ -23,18 +23,22 @@ npm install -g cli.recipes
 ###Start Menu
 ---
 ```sh
-###recipes start
+recipes (m)menu
 ```
-###Record new recipe
-```sh
-recipes r
-```
+
 ###Start search directly
 ```sh
-`recipes search
+recipes (s)earch
 ```
 
-
+###Record new recipe
+```sh
+recipes (r)ecord
+```
+###Presist recorded recipe
+```sh
+recipes (c)reate
+```
 ## Author
 
 👤 **Andreas Dickow**

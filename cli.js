@@ -12,20 +12,19 @@ const search = require('./logic').search;
 const main = program
   .version(version) .description('Main command with subcommand');
 
-  main.command('r').action(() => {
-    console.log("record");
+  main.command('r').alias('record').action(() => {
     record();
   });
 
-  main.command('m').alias('start').action(() => {
+  main.command('m').alias('menu').action(() => {
     getMenu();
   });
 
-    main.command('m').alias('search').action(() => {
+    main.command('s').alias('search').action(() => {
     search();
   });
 
-  main.command('c').action(() => {
+  main.command('c').alias('create').action(() => {
     create();
   });
 
