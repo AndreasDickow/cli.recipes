@@ -799,4 +799,4 @@ const getTutorial = async (name) => {
 };
 
 // Export all methods
-module.exports = { getMenu,create};
+module.exports = { getMenu,create,search};

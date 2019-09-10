@@ -7,7 +7,7 @@ const version = require('./package.json').version;
 // Require logic.js file and extract controller functions using JS destructuring assignment
 const getMenu = require('./logic').getMenu;
 const create = require('./logic').create;
-
+const search = require('./logic').search;
 
 const main = program
   .version(version) .description('Main command with subcommand');
@@ -19,6 +19,10 @@ const main = program
 
   main.command('m').alias('start').action(() => {
     getMenu();
+  });
+
+    main.command('m').alias('search').action(() => {
+    search();
   });
 
   main.command('c').action(() => {
