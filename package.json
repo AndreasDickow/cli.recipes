@@ -9,7 +9,7 @@
     "http": "^0.0.0",
     "inquirer": "^6.5.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
-    "marked": "^0.7.0",
+    "marked": ">=4.0.10",
     "marked-terminal": "^3.3.0",
     "node-persist": "^3.0.5"
   },
